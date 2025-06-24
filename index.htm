@@ -16,7 +16,7 @@
       document.addEventListener("DOMContentLoaded", async () => {
         const mindarThree = new window.MINDAR.IMAGE.MindARThree({
           container: document.querySelector("#ar-container"),
-          imageTargetSrc: "untitled.glb", // your MindAR image target
+          imageTargetSrc: "image.png", // your MindAR image target
         });
 
         const { renderer, scene, camera } = mindarThree;
@@ -24,7 +24,7 @@
         const anchor = mindarThree.addAnchor(0); // first target in .mind file
 
         const loader = new THREE.GLTFLoader();
-        loader.load("./model.glb", (gltf) => {
+        loader.load("untitled.glb", (gltf) => {
           const model = gltf.scene;
           model.scale.set(0.1, 0.1, 0.1); // scale to fit
           anchor.group.add(model);
