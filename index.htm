@@ -7,13 +7,31 @@
         <a-scene embedded arjs>
         <a-marker preset="hiro">
             <!-- we use cors proxy to avoid cross-origin problems ATTENTION! you need to set up your server -->
-            <a-entity
+            <a-entity id="model_here"
+            
             position="0 0 0"
-            scale="0.05 0.05 0.05"
-            gltf-model="newtest.gltf"
+            scale="0.1 0.1 0.1"
             ></a-entity>
         </a-marker>
-        <a-entity camera></a-entity>
+        <a-entity camera>
+            <div id="text_here"></div>
+        </a-entity>
         </a-scene>
+
+        <script>
+            var textHolder = document.querySelector('#text_here');
+
+            var modelholder = document.querySelector('#model_here');
+            modelholder.attributes['gltf-model'].value = "newtest.gltf"
+            document.addEventListener('markerFound', () => {
+                 setTimeout(() => {
+
+                    modelholder.attributes['gltf-model'].value = "lady.glb"; 
+                    textHolder.innerHTML = "Marker Found! Model should have Loaded.";
+                    
+                    
+                 }, timeout = 1000);
+            });
+        </script>
     </body>
 </html>
