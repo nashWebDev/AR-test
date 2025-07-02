@@ -2,17 +2,20 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>wwwork</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MindAR QR AR Demo</title>
 
-  <!-- MindAR & A-Frame -->
+  <!-- A-Frame -->
   <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+
+  <!-- MindAR for A-Frame -->
   <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.1.4/dist/mindar-image-aframe.prod.js"></script>
 
-  <!-- Optional: A-Frame Extras (for animation, etc.) -->
-  <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v7.0.0/dist/aframe-extras.min.js"></script>
+  <style>
+    body, html { margin: 0; overflow: hidden; height: 100%; width: 100%; }
+    a-scene { height: 100%; width: 100%; }
+  </style>
 </head>
-
 <body>
   <a-scene 
     mindar-image="imageTargetSrc: assets/targets.mind;" 
@@ -20,32 +23,23 @@
     device-orientation-permission-ui="enabled: false" 
     embedded
   >
-
-    <!-- Assets -->
     <a-assets>
-      <a-asset-item id="avatarModel" src="manny.glb"></a-asset-item>
+      <a-asset-item id="model" src="assets/manny.glb"></a-asset-item>
     </a-assets>
 
-    <!-- Image target entity -->
     <a-entity mindar-image-target="targetIndex: 0">
-      <!-- 3D model -->
-      <a-gltf-model 
-        src="#avatarModel" 
-        position="0 0 0" 
-        scale="0.5 0.5 0.5"
-      ></a-gltf-model>
+      <a-gltf-model src="#model" position="0 0 0" scale="0.5 0.5 0.5"></a-gltf-model>
 
-      <!-- Optional plane (semi-transparent blue) -->
+      <!-- Optional: a translucent plane below the model -->
       <a-plane 
         color="blue" 
-        opacity="0.5" 
+        opacity="0.3" 
         position="0 0 0" 
-        height="0.552" 
+        height="0.5" 
         width="1"
       ></a-plane>
     </a-entity>
 
-    <!-- AR Camera -->
     <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
   </a-scene>
 </body>
