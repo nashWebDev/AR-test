@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8" />
+    <title>AR.js Marker Detection</title>
     <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
     <script src="https://raw.githack.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
@@ -10,21 +12,17 @@
 
   <body style="margin: 0; overflow: hidden">
     <a-scene
-      vr-mode-ui="enabled: false;"
-      loading-screen="enabled: false;"
-      renderer="logarithmicDepthBuffer: true;"
-      arjs="trackingMethod: best; sourceType: webcam; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960; debugUIEnabled: false;"
-      id="scene"
-      xrweb="scale:absolute"
+      vr-mode-ui="enabled: false"
+      loading-screen="enabled: false"
+      renderer="logarithmicDepthBuffer: true"
+      arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;"
       embedded
-      gesture-detector      
+      gesture-detector
     >
       <a-assets>
-        <!-- Your GLB 3D model asset -->
-        <a-asset-item id="animated-asset" src="assets/manny.glb"></a-asset-item>
+        <a-asset-item id="animated-asset" src="assets/manny.glb?v=1705006592251"></a-asset-item>
       </a-assets>
 
-      <!-- Your marker file -->
       <a-marker
         id="animated-marker"
         type="pattern"
@@ -32,10 +30,10 @@
         url="assets/hiro-qr.patt"
         raycaster="objects: .clickable"
         emitevents="true"
-        cursor="fuse: false; rayOrigin: mouse;"
+        cursor="fuse: false; rayOrigin: mouse"
       >
         <a-entity
-          scale="3 3 3"        
+          scale="3 3 3"
           rotation="0 0 0"
           animation-mixer="loop: repeat"
           gltf-model="#animated-asset"
@@ -45,8 +43,21 @@
       </a-marker>
 
       <a-entity camera></a-entity>
-      <a-light type="directional" light="castShadow:false;" intensity="3" position="2 4 4"></a-light>
+      <a-light type="directional" intensity="3" position="2 4 4"></a-light>
       <a-light type="ambient" intensity="0.5" color="#BBB"></a-light>
     </a-scene>
+
+    <!-- Console feedback for debugging -->
+    <script>
+      const marker = document.querySelector("#animated-marker");
+
+      marker.addEventListener("markerFound", () => {
+        console.log("✅ Marker detected!");
+      });
+
+      marker.addEventListener("markerLost", () => {
+        console.log("❌ Marker lost.");
+      });
+    </script>
   </body>
 </html>
