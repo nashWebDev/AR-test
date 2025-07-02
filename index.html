@@ -30,5 +30,13 @@
       ></a-gltf-model>
     </a-entity>
   </a-scene>
+   <script>
+     const scene = document.querySelector('a-entity');
+    scene.addEventListener("targetFound", () => {
+        document.addEventListener("click", () => {
+            window.location.href = "https://bereagroup.co.za"
+        });
+    });
+    </script>
 </body>
 </html>
