@@ -1,66 +1,63 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-  <title>Image Tracker</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image tracker</title>
 
-  <!-- A-Frame and AR.js (NFT tracking) -->
-  <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@master/dist/aframe.min.js"></script>
-  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+    <!-- import aframe and then ar.js with image tracking / location based features -->
+<script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1c2407b26c61958baa93967b5412487cd94b290b/dist/aframe-master.min.js"></script>
+<script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
 
-  <style>
-    .arjs-loader {
-      height: 100%;
-      width: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
-      background-color: rgba(0, 0, 0, 0.8);
-      z-index: 9999;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+<style>
+  .arjs-loader {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-    .arjs-loader div {
-      text-align: center;
-      font-size: 1.25em;
-      color: white;
-    }
-
-    .dis {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: baseline;
-      font-size: 2em;
-      color: white;
-      padding-bottom: 300px;
-      z-index: 999;
-      pointer-events: none;
-    }
-  </style>
+  .arjs-loader div {
+    text-align: center;
+    font-size: 1.25em;
+    color: white;
+  }
+  .dis{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    font-size: 2em;
+    color: white;
+    padding-bottom: 300px;
+  }
+</style>
 </head>
-<body style="margin:0; overflow:hidden;">
+<body style="margin : 0px; overflow: hidden;">
+  <!-- minimal loader shown until image descriptors are loaded. Loading may take a while according to the device computational power -->
+  <div class="arjs-loader">
+    <div>Loading, please wait...</div>
+  </div>
 
-  <!-- Loader -->
-  <div class="arjs-loader"><div>Loading, please wait...</div></div>
-
-  <!-- Text overlay -->
-  <div id="th" class="dis"></div>
-
-  <!-- A-Frame Scene -->
+  <!-- a-frame scene -->
   <a-scene
-    vr-mode-ui="enabled: false"
+    vr-mode-ui="enabled: false;"
     renderer="logarithmicDepthBuffer: true;"
     embedded
-    arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;"
+    arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;"
   >
+    <!-- a-nft is the anchor that defines an Image Tracking entity -->
+    <!-- on 'url' use the path to the Image Descriptors created before. -->
+    <!-- the path should end with the name without the extension e.g. if file is 'pinball.fset' the path should end with 'pinball' -->
     <a-nft
       type="nft"
       url="AR-test/exported_qrcode_images/exported_qrcode_image"
@@ -69,23 +66,32 @@
       smoothTolerance=".01"
       smoothThreshold="5"
     >
+      <!-- as a child of the a-nft entity, you can define the content to show. here's a GLTF model entity -->
       <a-entity
-        gltf-model="manny.glb"
-        scale="0.2 0.2 0.2"
+        gltf-model="test.glb"
+        scale="5 5 5"
         position="0 0 0"
-      ></a-entity>
+      >
+      </a-entity>
     </a-nft>
-
-    <a-entity camera></a-entity>
+    <!-- static camera that moves according to the device movemenents -->
+    <a-entity camera position="0 0 0" look-controls>
+        <div id="th"></div>
+    </a-entity>
   </a-scene>
 
-  <script>
-    const textHolder = document.getElementById("th");
-    document.addEventListener('markerFound', () => {
-      setTimeout(() => {
-        textHolder.innerHTML = "Marker Found! Model should have Loaded.";
-      }, 1000);
-    });
-  </script>
+    <script>
+           var textHolder = document.getElementById("th");
+            
+            document.addEventListener('markerFound', () => {
+                 setTimeout(() => {
+
+                    // modelholder.attributes['gltf-model'].value = "lady.glb"; 
+                    textHolder.innerHTML = "Marker Found! Model should have Loaded.";
+                    
+                    
+                 }, timeout = 1000);
+            });
+        </script>
 </body>
 </html>
