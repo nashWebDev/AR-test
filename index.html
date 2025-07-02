@@ -3,44 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>MindAR QR AR Demo</title>
-
-  <!-- A-Frame -->
-  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
-
-  <!-- MindAR for A-Frame -->
-  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.1.4/dist/mindar-image-aframe.prod.js"></script>
-
+  <title>AR.js Custom Marker with 3D Model</title>
+  <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js@3.3.2/aframe/build/aframe-ar.min.js"></script>
   <style>
     body, html { margin: 0; overflow: hidden; height: 100%; width: 100%; }
     a-scene { height: 100%; width: 100%; }
   </style>
 </head>
 <body>
-  <a-scene 
-    mindar-image="imageTargetSrc: assets/targets.mind;" 
-    vr-mode-ui="enabled: false" 
-    device-orientation-permission-ui="enabled: false" 
-    embedded
-  >
-    <a-assets>
-      <a-asset-item id="model" src="assets/manny.glb"></a-asset-item>
-    </a-assets>
+  <a-scene embedded arjs="trackingMethod: best;">
+    <!-- Use your custom QR code pattern marker here -->
+    <a-marker type="pattern" url="assetshiro-qr.patt">
+      <a-gltf-model src="assets/manny.glb" scale="0.5 0.5 0.5" position="0 0 0"></a-gltf-model>
+    </a-marker>
 
-    <a-entity mindar-image-target="targetIndex: 0">
-      <a-gltf-model src="#model" position="0 0 0" scale="0.5 0.5 0.5"></a-gltf-model>
-
-      <!-- Optional: a translucent plane below the model -->
-      <a-plane 
-        color="blue" 
-        opacity="0.3" 
-        position="0 0 0" 
-        height="0.5" 
-        width="1"
-      ></a-plane>
-    </a-entity>
-
-    <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+    <!-- Camera entity -->
+    <a-entity camera></a-entity>
   </a-scene>
 </body>
 </html>
