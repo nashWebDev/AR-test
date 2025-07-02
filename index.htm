@@ -75,11 +75,13 @@
       </a-entity>
     </a-nft>
     <!-- static camera that moves according to the device movemenents -->
-    <a-entity camera></a-entity>
+    <a-entity camera>
+        <div id="th"></div>
+    </a-entity>
   </a-scene>
 
     <script>
-           
+           var textHolder = document.getElementById("th");
             
             document.addEventListener('markerFound', () => {
                  setTimeout(() => {
