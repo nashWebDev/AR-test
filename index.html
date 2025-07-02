@@ -1,50 +1,44 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+    <!-- we import arjs version without NFT but with marker + location based support -->
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
-    <script src="https://raw.githack.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
-    <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-detector.js"></script>
-    <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-handler.js"></script>
-  </head>
+    <body style="margin : 0px; overflow: hidden;">
+        <a-scene embedded arjs>
+        <a-marker 
+  type="pattern" 
+  url="\assets\hiro-qr.patt"
+>
+            <!-- we use cors proxy to avoid cross-origin problems ATTENTION! you need to set up your server -->
+<a-entity id="model_here"
+            
+            position="0 0 0"
+            scale="0.1 0.1 0.1"
+    gltf-model = "mhead.glb"
+            ></a-entity>
+        </a-marker>
+        <a-entity camera>
+            <div id="text_here"></div>
+        </a-entity>
+        </a-scene>
 
-  <body style="margin: 0; overflow: hidden">
-    <a-scene
-      vr-mode-ui="enabled: false;"
-      loading-screen="enabled: false;"
-      renderer="logarithmicDepthBuffer: true;"
-      arjs="trackingMethod: best; sourceType: webcam; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960; debugUIEnabled: false;"
-      id="scene"
-      xrweb="scale:absolute"
-      embedded
-      gesture-detector      
-    >
-      <a-assets>
-        <a-asset-item id="animated-asset" src="assets/manny.glb?v=1705006592251"></a-asset-item>
-      </a-assets>
+        <script>
+            var textHolder = document.querySelector('#text_here');
 
-      <a-marker
-        id="animated-marker"
-        type="pattern"
-        preset="custom"
-        url="assets/hiro-qr.patt?v=1702483791471"
-        raycaster="objects: .clickable"
-        emitevents="true"
-        cursor="fuse: false; rayOrigin: mouse;"
-      >
-        <a-entity
-          scale="3 3 3"        
-          rotation="0 0 0"
-          animation-mixer="loop: repeat"
-          gltf-model="#animated-asset"
-          class="clickable"
-          gesture-handler
-        ></a-entity>
-      </a-marker>
+            // var modelholder = document.querySelector('#model_here');
+            // document.addEventListener('DOMContentLoaded', () => {
+            //     modelholder.attributes['gltf-model']= "newtest.gltf"
+            // });
+            
+            document.addEventListener('markerFound', () => {
+                 setTimeout(() => {
 
-      <a-entity camera></a-entity>
-      <a-light type="directional" light="castShadow:false;" intensity="3" position="2 4 4"></a-light>
-      <a-light type="ambient" intensity="0.5" color="#BBB"></a-light>
-    </a-scene>
-  </body>
+                    // modelholder.attributes['gltf-model'].value = "lady.glb"; 
+                    textHolder.innerHTML = "Marker Found! Model should have Loaded.";
+                    
+                    
+                 }, timeout = 1000);
+            });
+        </script>
+    </body>
 </html>
