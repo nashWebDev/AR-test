@@ -68,10 +68,12 @@
     >
       <!-- as a child of the a-nft entity, you can define the content to show. here's a GLTF model entity -->
       <a-entity
-        gltf-model="test.glb"
-        scale="5 5 5"
-        position="0 0 0"
-      >
+  gltf-model="manny.glb?v=1"
+  scale="0.2 0.2 0.2"
+  position="0 0 0"
+  visible="false"
+  id="model"
+></a-entity>
       </a-entity>
     </a-nft>
     <!-- static camera that moves according to the device movemenents -->
@@ -80,18 +82,20 @@
     </a-entity>
   </a-scene>
 
-    <script>
-           var textHolder = document.getElementById("th");
-            
-            document.addEventListener('markerFound', () => {
-                 setTimeout(() => {
+    
 
-                    // modelholder.attributes['gltf-model'].value = "lady.glb"; 
-                    textHolder.innerHTML = "Marker Found! Model should have Loaded.";
-                    
-                    
-                 }, timeout = 1000);
-            });
-        </script>
+<script>
+  const model = document.getElementById("model");
+  const textHolder = document.getElementById("th");
+
+  document.addEventListener("markerFound", () => {
+    setTimeout(() => {
+      model.setAttribute("visible", true);
+      textHolder.innerText = "Marker Found! Model should be visible.";
+    }, 500); // short delay helps with rendering stability
+  });
+</script>
+
+   
 </body>
 </html>
