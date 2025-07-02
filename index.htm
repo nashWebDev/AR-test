@@ -1,73 +1,41 @@
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AR Scene</title>
-  
-  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
-</head>
-<body style="margin: 0px; overflow: hidden;">
+<!DOCTYPE html>
+<html>
+    <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+    <!-- we import arjs version without NFT but with marker + location based support -->
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <body style="margin : 0px; overflow: hidden;">
+        <a-scene embedded arjs>
+        <a-marker preset="hiro">
+            <!-- we use cors proxy to avoid cross-origin problems ATTENTION! you need to set up your server -->
+<a-entity id="model_here"
+            
+            position="0 0 0"
+            scale="0.1 0.1 0.1"
+    gltf-model = "mhead.glb"
+            ></a-entity>
+        </a-marker>
+        <a-entity camera>
+            <div id="text_here"></div>
+        </a-entity>
+        </a-scene>
 
-  <style>
-    .arjs-loader {
-      height: 100%;
-      width: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
-      background-color: rgba(0, 0, 0, 0.8);
-      z-index: 9999;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+        <script>
+            var textHolder = document.querySelector('#text_here');
 
-    .arjs-loader div {
-      text-align: center;
-      font-size: 1.25em;
-      color: white;
-    }
-  </style>
+            // var modelholder = document.querySelector('#model_here');
+            // document.addEventListener('DOMContentLoaded', () => {
+            //     modelholder.attributes['gltf-model']= "newtest.gltf"
+            // });
+            
+            document.addEventListener('markerFound', () => {
+                 setTimeout(() => {
 
-  <div class="arjs-loader">
-    <div>Loading, please wait...</div>
-  </div>
-
-  <a-scene
-    vr-mode-ui="enabled: false;"
-    renderer="logarithmicDepthBuffer: true; precision: medium;"
-    embedded
-    arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;"
-  >
-    <a-nft
-      id="my-nft"
-      type="nft"
-      url="AR-test/exported_qrcode_images/exported_qrcode_image"
-      smooth="true"
-      smoothCount="10"
-      smoothTolerance=".01"
-      smoothThreshold="5"
-    >
-      <a-entity
-        gltf-model="manny.glb"
-        scale="5 5 5"
-        position="150 300 -100"
-      ></a-entity>
-    </a-nft>
-
-    <a-entity camera></a-entity>
-  </a-scene>
-
-  <script>
-    const marker = document.querySelector("#my-nft");
-
-    marker.addEventListener("markerFound", () => {
-      console.log("Marker found");
-    });
-
-    marker.addEventListener("markerLost", () => {
-      console.log("Marker lost");
-    });
-  </script>
-</body>
+                    // modelholder.attributes['gltf-model'].value = "lady.glb"; 
+                    textHolder.innerHTML = "Marker Found! Model should have Loaded.";
+                    
+                    
+                 }, timeout = 1000);
+            });
+        </script>
+    </body>
 </html>
