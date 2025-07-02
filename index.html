@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8" />
-    <title>AR.js Marker Detection</title>
     <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
     <script src="https://raw.githack.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
@@ -12,28 +10,30 @@
 
   <body style="margin: 0; overflow: hidden">
     <a-scene
-      vr-mode-ui="enabled: false"
-      loading-screen="enabled: false"
-      renderer="logarithmicDepthBuffer: true"
-      arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;"
+      vr-mode-ui="enabled: false;"
+      loading-screen="enabled: false;"
+      renderer="logarithmicDepthBuffer: true;"
+      arjs="trackingMethod: best; sourceType: webcam; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960; debugUIEnabled: false;"
+      id="scene"
+      xrweb="scale:absolute"
       embedded
-      gesture-detector
+      gesture-detector      
     >
       <a-assets>
-        <a-asset-item id="animated-asset" src="assets/manny.glb?v=1705006592251"></a-asset-item>
+        <a-asset-item id="animated-asset" src="https://cdn.glitch.global/1bc28f8f-8d53-4bed-a675-2db1ca5b2b87/MacbethBalls.glb?v=1705006592251"></a-asset-item>
       </a-assets>
 
       <a-marker
         id="animated-marker"
         type="pattern"
         preset="custom"
-        url="assets/hiro-qr.patt"
+        url="https://cdn.glitch.global/9a3491c7-f927-4017-ba49-251fab8583db/marker.patt?v=1702483791471"
         raycaster="objects: .clickable"
         emitevents="true"
-        cursor="fuse: false; rayOrigin: mouse"
+        cursor="fuse: false; rayOrigin: mouse;"
       >
         <a-entity
-          scale="3 3 3"
+          scale="3 3 3"        
           rotation="0 0 0"
           animation-mixer="loop: repeat"
           gltf-model="#animated-asset"
@@ -43,21 +43,8 @@
       </a-marker>
 
       <a-entity camera></a-entity>
-      <a-light type="directional" intensity="3" position="2 4 4"></a-light>
+      <a-light type="directional" light="castShadow:false;" intensity="3" position="2 4 4"></a-light>
       <a-light type="ambient" intensity="0.5" color="#BBB"></a-light>
     </a-scene>
-
-    <!-- Console feedback for debugging -->
-    <script>
-      const marker = document.querySelector("#animated-marker");
-
-      marker.addEventListener("markerFound", () => {
-        console.log("✅ Marker detected!");
-      });
-
-      marker.addEventListener("markerLost", () => {
-        console.log("❌ Marker lost.");
-      });
-    </script>
   </body>
 </html>
