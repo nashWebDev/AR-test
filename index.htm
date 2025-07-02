@@ -11,7 +11,7 @@
             
             position="0 0 0"
             scale="0.1 0.1 0.1"
-    gltf-model = "newtest.gltf"
+    gltf-model = "mhead.glb"
             ></a-entity>
         </a-marker>
         <a-entity camera>
@@ -22,15 +22,15 @@
         <script>
             var textHolder = document.querySelector('#text_here');
 
-            var modelholder = document.querySelector('#model_here');
-            document.addEventListener('DOMContentLoaded', () => {
-                modelholder.attributes['gltf-model']= "newtest.gltf"
-            });
+            // var modelholder = document.querySelector('#model_here');
+            // document.addEventListener('DOMContentLoaded', () => {
+            //     modelholder.attributes['gltf-model']= "newtest.gltf"
+            // });
             
             document.addEventListener('markerFound', () => {
                  setTimeout(() => {
 
-                    modelholder.attributes['gltf-model'].value = "lady.glb"; 
+                    // modelholder.attributes['gltf-model'].value = "lady.glb"; 
                     textHolder.innerHTML = "Marker Found! Model should have Loaded.";
                     
                     
