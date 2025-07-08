@@ -16,6 +16,16 @@
         pointer-events: none; /* So AR elements are still interactive */
         z-index: 10;
       }
+      #ov{
+        display:none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        pointer-events: none; /* So AR elements are still interactive */
+        z-index: 10;
+      }
 
       /* 📝 You can style this however you like */
       .overlay-text {
@@ -27,6 +37,10 @@
         padding: 10px;
         border-radius: 10px;
       }
+    .button{
+      width:100%;
+      backgroundcolor:#27348B;
+    }
   </style>
 
 </head>
@@ -36,6 +50,9 @@
     </audio>
   <div id="overlay">
     <h3 class="overlay-text"> Please Point at QR Code </h3>
+  </div>
+  <div id="ov>
+    <button class="button">ENROLL NOW</button>
   </div>
   
   <a-scene
@@ -68,6 +85,7 @@
      const scene = document.querySelector('a-entity');
      var speech = document.getElementById('speech');
      const texts = document.getElementById('overlay');
+     const btn = document.getElementById('ov');
      
     scene.addEventListener("targetFound", () => {
          speech.play()
@@ -76,6 +94,7 @@
         setTimeout(() => {
             document.addEventListener("click", () => {
             window.location.href = "https://bereagroup.co.za"
+            btn.style.display = "block";
         });
         }, 3000);
     });
