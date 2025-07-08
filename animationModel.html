@@ -5,11 +5,39 @@
   <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@6.1.1/dist/aframe-extras.min.js"></script>
 
+  <style>
+     /* 🔷 Overlay on top of the camera view */
+      #overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        pointer-events: none; /* So AR elements are still interactive */
+        z-index: 10;
+      }
+
+      /* 📝 You can style this however you like */
+      .overlay-text {
+        color: white;
+        font-size: 2em;
+        text-align: center;
+        margin-top: 20px;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 10px;
+        border-radius: 10px;
+      }
+  </style>
+
 </head>
 <body>
     <audio id="speech">
         <source src="speech.mp3" type="audio/mpeg">
     </audio>
+  <div id="overlay">
+    <h3 class="overlay-text"> Please Point at QR Code </h3>
+  </div>
+  
   <a-scene
     mindar-image="imageTargetSrc: https://nashwebdev.github.io/AR-test/nfts/targets(1).mind;"
     color-space="sRGB"
@@ -37,9 +65,12 @@
   </a-scene>
    <script>
      const scene = document.querySelector('a-entity');
-     var speech = document.getElementById('speech')
+     var speech = document.getElementById('speech');
+     const texts = document.getElementById('overlay');
+     
     scene.addEventListener("targetFound", () => {
          speech.play()
+        texts.style.display = "none";
 
         setTimeout(() => {
             document.addEventListener("click", () => {
@@ -48,7 +79,10 @@
         }, 3000);
     });
 
-    scene.addEventListener('targetLost' ,() => speech.pause())
+    scene.addEventListener('targetLost' ,() =>{
+       speech.pause()
+      texts.style.display = "block";
+    })
     </script>
 </body>
 </html>
