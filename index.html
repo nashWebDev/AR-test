@@ -1,10 +1,63 @@
+
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@6.1.1/dist/aframe-extras.min.js"></script>
+
+  <style>
+     /* 🔷 Overlay on top of the camera view */
+      #overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        pointer-events: none; /* So AR elements are still interactive */
+        z-index: 10;
+      }
+      #ov{
+        display:none;
+        align-item:center;
+        justify-content:center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        pointer-events: none; /* So AR elements are still interactive */
+        z-index: 10;
+      }
+
+      /* 📝 You can style this however you like */
+      .overlay-text {
+        color: white;
+        font-size: 2em;
+        text-align: center;
+        margin-top: 20px;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 10px;
+        border-radius: 10px;
+      }
+    .button{
+      width:90vw;
+      backgroundcolor:'#27348B';
+    }
+  </style>
+
 </head>
 <body>
+    <audio id="speech">
+        <source src="speech.mp3" type="audio/mpeg">
+    </audio>
+  <div id="overlay">
+    <h3 class="overlay-text"> Please Point at QR Code </h3>
+  </div>
+<!--   <div id="ov>
+    <button class="button">ENROLL NOW</button>
+  </div> -->
+  
   <a-scene
     mindar-image="imageTargetSrc: https://nashwebdev.github.io/AR-test/nfts/targets(1).mind;"
     color-space="sRGB"
@@ -15,7 +68,7 @@
     <a-assets>
       <a-asset-item
         id="avatarModel"
-        src="https://nashwebdev.github.io/AR-test/manny.glb"
+        src="https://nashwebdev.github.io/AR-test/Robo.glb"
       ></a-asset-item>
     </a-assets>
 
@@ -25,18 +78,35 @@
       <a-gltf-model
         src="#avatarModel"
         position="0 0 0"
-        scale="0.3 0.3 0.3"
-        animation="property: position; to: 0 0.2 0; dur: 1000; easing: easeInOutQuad; loop: true; dir: alternate"
+        scale="7 7 7"
+        rotation="-90 180 0"
+        animation-mixer
       ></a-gltf-model>
     </a-entity>
   </a-scene>
    <script>
      const scene = document.querySelector('a-entity');
+     var speech = document.getElementById('speech');
+     const texts = document.getElementById('overlay');
+     const btn = document.getElementById('ov');
+     // btn.style.display = "none";
+     
     scene.addEventListener("targetFound", () => {
-        document.addEventListener("click", () => {
+         speech.play()
+        texts.style.display = "none";
+
+        setTimeout(() => {
+            document.addEventListener("click", () => {
             window.location.href = "https://bereagroup.co.za"
+            // btn.style.display = "flex";
         });
+        }, 3000);
     });
+
+    scene.addEventListener('targetLost' ,() =>{
+       speech.pause()
+      texts.style.display = "block";
+    })
     </script>
 </body>
 </html>
