@@ -7,6 +7,9 @@
 
 </head>
 <body>
+    <audio id="speech">
+        <source src="speech.mp3" type="audio/mpeg">
+    </audio>
   <a-scene
     mindar-image="imageTargetSrc: https://nashwebdev.github.io/AR-test/nfts/targets(1).mind;"
     color-space="sRGB"
@@ -34,11 +37,18 @@
   </a-scene>
    <script>
      const scene = document.querySelector('a-entity');
+     var speech = document.getElementById('speech')
     scene.addEventListener("targetFound", () => {
-        document.addEventListener("click", () => {
+         speech.play()
+
+        setTimeout(() => {
+            document.addEventListener("click", () => {
             window.location.href = "https://bereagroup.co.za"
         });
+        }, 3000);
     });
+
+    scene.addEventListener('targetLost' ,() => speech.pause())
     </script>
 </body>
 </html>
