@@ -53,9 +53,9 @@
   <div id="overlay">
     <h3 class="overlay-text"> Please Point at QR Code </h3>
   </div>
-  <div id="ov>
+<!--   <div id="ov>
     <button class="button">ENROLL NOW</button>
-  </div>
+  </div> -->
   
   <a-scene
     mindar-image="imageTargetSrc: https://nashwebdev.github.io/AR-test/nfts/targets(1).mind;"
@@ -88,7 +88,7 @@
      var speech = document.getElementById('speech');
      const texts = document.getElementById('overlay');
      const btn = document.getElementById('ov');
-     btn.style.display = "none";
+     // btn.style.display = "none";
      
     scene.addEventListener("targetFound", () => {
          speech.play()
@@ -97,7 +97,7 @@
         setTimeout(() => {
             document.addEventListener("click", () => {
             window.location.href = "https://bereagroup.co.za"
-            btn.style.display = "flex";
+            // btn.style.display = "flex";
         });
         }, 3000);
     });
