@@ -88,6 +88,7 @@
      var speech = document.getElementById('speech');
      const texts = document.getElementById('overlay');
      const btn = document.getElementById('ov');
+     btn.style.display = "none";
      
     scene.addEventListener("targetFound", () => {
          speech.play()
@@ -96,7 +97,7 @@
         setTimeout(() => {
             document.addEventListener("click", () => {
             window.location.href = "https://bereagroup.co.za"
-            btn.style.display = "block";
+            btn.style.display = "flex";
         });
         }, 3000);
     });
