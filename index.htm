@@ -98,7 +98,7 @@
 let TOTAL_ESTIMATE = 1016 * 1024;
 // I use a hr as a 
 let bar = document.getElementById("progressbar");
-let button = document.getElementById("dlbtn");
+//let button = document.getElementById("dlbtn");
 
 var js; // to hold the created dom element
 var fileName; // to hold my cacheBusted script adress
@@ -147,7 +147,7 @@ function onScriptLoaded() {
 }
 
 function downloadFile(file) {
-  button.disabled = true;
+//  button.disabled = true;
   (function(d) {
     // this helps to test this script multiple times. don't keep it
     fileName = file + "?bustCache=" + new Date().getTime();
@@ -197,4 +197,5 @@ document.addEventListener("DOMContentLoad",downloadFile("https://nashwebdev.gith
     </script>
 </body>
 </html>
+
 
