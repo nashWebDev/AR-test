@@ -53,6 +53,7 @@
     </audio>
   <div id="overlay">
     <h3 class="overlay-text"> Please Point at QR Code </h3>
+    <div id="progressText">0%</div>
   </div>
 <!--   <div id="ov>
     <button class="button">ENROLL NOW</button>
@@ -90,6 +91,14 @@
      const texts = document.getElementById('overlay');
      const btn = document.getElementById('ov');
      // btn.style.display = "none";
+
+     // Create LoadingManager
+const manager = new THREE.LoadingManager();
+
+manager.onProgress = (url, loaded, total) => {
+  const percent = (loaded / total) * 100;
+  progressText.innerText = percent.toFixed(0) + "%";
+};
      
     scene.addEventListener("targetFound", () => {
          speech.play()
@@ -110,6 +119,7 @@
     </script>
 </body>
 </html>
+
 
 
 
